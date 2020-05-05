@@ -12,6 +12,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [filter, setFilter] = useState({
+    all: true,
     men: false,
     women: false,
     accessories: false,

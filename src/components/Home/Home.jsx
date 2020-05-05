@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import Pagination from "../common/Pagination";
 import ProductContext from "../context/ProductContext";
+import _ from "lodash";
 
 const Home = () => {
   const { products, cart, setCart, filter, setFilter } = useContext(
@@ -12,61 +13,71 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleFilters = (e) => {
-    const name = e.target.name;
+    const name = e.target.id;
     const isChecked = e.target.checked;
 
-    setFilter({ [name]: isChecked });
-    console.log(filter);
+    setFilter({ ...filter, [name]: isChecked });
+    setCurrentPage(1);
   };
 
-  const indexOfLastProduct = currentPage * itemsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
-  const pageData = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const getPageData = () => {
+    let filtered = products;
+    if (filter.men)
+      filtered = products.filter((product) => product.category === "men");
+    else if (filter.women)
+      filtered = products.filter((product) => product.category === "women");
+
+    const indexOfLastProduct = currentPage * itemsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
+    const pageData = _(filtered)
+      .slice(indexOfFirstProduct)
+      .take(itemsPerPage)
+      .value();
+
+    return {
+      totalCount: filtered.length,
+      data: pageData,
+    };
+  };
+
+  const { totalCount, data: pageData } = getPageData();
 
   return (
     <div className="home">
       <div className="home__banner"></div>
-
       <div className="products">
         <div className="container">
           <div className="row">
             <div className="col-12 col-md-2">
               <div className="filter-wrapper">
                 <h6>Filters:</h6>
-                <div className="custom-control custom-checkbox">
+                <div className="custom-control custom-checkbox ">
                   <input
                     type="checkbox"
                     className="custom-control-input"
-                    id="mens"
+                    id="men"
                     name="men"
-                    // checked={filter.men}
+                    disabled={filter.women ? "disabled" : false}
+                    checked={filter.men}
                     onChange={(e) => handleFilters(e)}
                   />
-                  <label className="custom-control-label" htmlFor="mens">
+                  <label className="custom-control-label" htmlFor="men">
                     Men's Clothing
                   </label>
                 </div>
 
-                <div className="custom-control custom-checkbox">
+                <div className="custom-control custom-checkbox ">
                   <input
                     type="checkbox"
                     className="custom-control-input"
-                    id="womens"
+                    id="women"
                     name="women"
+                    disabled={filter.men ? "disabled" : false}
+                    checked={filter.women}
+                    onChange={(e) => handleFilters(e)}
                   />
-                  <label className="custom-control-label" htmlFor="womens">
+                  <label className="custom-control-label" htmlFor="women">
                     Women's Clothing
-                  </label>
-                </div>
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="accessories"
-                    name="accessories"
-                  />
-                  <label className="custom-control-label" htmlFor="accessories">
-                    Accessories
                   </label>
                 </div>
               </div>
@@ -107,7 +118,7 @@ const Home = () => {
                 ))}
               </div>
               <Pagination
-                totalProd={products.length}
+                totalProd={totalCount}
                 currentPage={currentPage}
                 prodPerPage={itemsPerPage}
                 paginate={paginate}
