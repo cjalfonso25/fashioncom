@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import ProductContext from "../context/ProductContext";
+import Button from "../common/Button";
 
 const Cart = () => {
   const { cart, setCart, showCart, setShowCart } = useContext(ProductContext);
@@ -45,12 +46,12 @@ const Cart = () => {
           )}
         </div>
       </div>
-      <button
-        className="btn btn-dark form-control"
+      <Button
+        label="Checkout"
+        className="btn-dark form-control"
         disabled={cart.length < 1 ? "disabled" : false}
-      >
-        Checkout
-      </button>
+        onClick={() => (window.location = "/projects/fashioncom/checkout")}
+      />
     </div>
   );
 };

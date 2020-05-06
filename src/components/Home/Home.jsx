@@ -1,14 +1,18 @@
-import React, { useState, useContext } from "react";
-import Pagination from "../common/Pagination";
-import ProductContext from "../context/ProductContext";
+import React, { useState, useContext, useEffect } from "react";
 import _ from "lodash";
+import ProductContext from "../context/ProductContext";
+import Filter from "../Filter/Filter";
+import Products from "../Products/Products";
+import Pagination from "../common/Pagination";
 
 const Home = () => {
-  const { products, cart, setCart, filter, setFilter } = useContext(
-    ProductContext
-  );
+  const { products, filter, setFilter } = useContext(ProductContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
+
+  useEffect(() => {
+    document.title = "Home - FashionCom";
+  }, []);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -49,74 +53,12 @@ const Home = () => {
         <div className="container">
           <div className="row">
             <div className="col-12 col-md-2">
-              <div className="filter-wrapper">
-                <h6>Filters:</h6>
-                <div className="custom-control custom-checkbox ">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="men"
-                    name="men"
-                    disabled={filter.women ? "disabled" : false}
-                    checked={filter.men}
-                    onChange={(e) => handleFilters(e)}
-                  />
-                  <label className="custom-control-label" htmlFor="men">
-                    Men's Clothing
-                  </label>
-                </div>
-
-                <div className="custom-control custom-checkbox ">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id="women"
-                    name="women"
-                    disabled={filter.men ? "disabled" : false}
-                    checked={filter.women}
-                    onChange={(e) => handleFilters(e)}
-                  />
-                  <label className="custom-control-label" htmlFor="women">
-                    Women's Clothing
-                  </label>
-                </div>
-              </div>
+              <Filter filter={filter} onChange={handleFilters} />
             </div>
 
             {/* PRODUCTS */}
             <div className="col-12 col-md-10 mt-3">
-              <div className="row">
-                {pageData.map((product) => (
-                  <div key={product.id} className="col-12 col-md-4">
-                    <div className="card">
-                      <img
-                        src={product.image}
-                        className="card-img-top item__image"
-                        alt="..."
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title item__name">
-                          {product.name}
-                        </h5>
-                        <p className="card-text item__price">
-                          ${product.price}
-                        </p>
-                        <button
-                          className="btn btn-outline-dark btn-sm"
-                          disabled={
-                            !cart.includes(product) ? false : "disabled"
-                          }
-                          onClick={() => setCart([...cart, product])}
-                        >
-                          {!cart.includes(product)
-                            ? "Add to cart"
-                            : "Added to cart"}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Products pageData={pageData} />
               <Pagination
                 totalProd={totalCount}
                 currentPage={currentPage}

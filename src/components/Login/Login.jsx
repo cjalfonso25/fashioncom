@@ -1,28 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Input from "../common/Input";
+import Button from "../common/Button";
 
 const Login = () => {
+  useEffect(() => {
+    document.title = "Login - FashionCom";
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    window.location = "/projects/fashioncom/profile";
+  };
+
   return (
     <div className="login-page">
       <div className="container">
         <div className="login-wrapper">
           <h1>Login</h1>
-          <form>
-            <div className="form-group">
-              <label htmlFor="email">Email address</label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" id="password" />
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Login
-            </button>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <Input label="Email Address" name="email" type="email" />
+            <Input label="Password" name="password" type="password" />
+            <Button label="Login" type="submit" className="btn-primary" />
           </form>
         </div>
       </div>

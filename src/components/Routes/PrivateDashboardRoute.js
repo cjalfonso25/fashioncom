@@ -1,21 +1,22 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateDashboardRoute = ({ component: Component, ...rest }) => {
   const user = true;
+  const isSeller = true;
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        user ? (
+        user && isSeller ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/projects/fashioncom/login" />
+          <Redirect to="/projects/fashioncom/profile" />
         )
       }
     />
   );
 };
 
-export default PrivateRoute;
+export default PrivateDashboardRoute;
