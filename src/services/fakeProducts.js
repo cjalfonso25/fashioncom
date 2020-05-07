@@ -182,6 +182,36 @@ const products = [
       },
     ],
   },
+
+  {
+    id: "13",
+    name: "Black Jacket",
+    image: "/assets/img/woman-posing-for-photo-shoot-1689731.jpg",
+    price: 113.75,
+    category: "women",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
+  },
+
+  {
+    id: "14",
+    name: "Hoody for Men",
+    image: "/assets/img/photography-of-guy-wearing-yellow-hoodie-1183266.jpg",
+    price: 45.99,
+    category: "men",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
+  },
 ];
 
 function getProducts() {

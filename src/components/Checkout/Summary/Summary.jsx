@@ -58,7 +58,6 @@ const Summary = () => {
                         className="form-control quantity-selector text-center"
                         disabled="disabled"
                         value={item.quantity}
-                        // onChange={(e) => handleQuantityChange(e, index)}
                       />
                       <div className="input-group-append">
                         <div
