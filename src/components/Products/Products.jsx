@@ -1,13 +1,20 @@
 import React, { useContext } from "react";
-import ProductContext from "../context/ProductContext";
+import { ProductContext } from "../context/ProductContext";
 import { Link } from "react-router-dom";
 
 const Products = ({ pageData }) => {
   const { cart, setCart } = useContext(ProductContext);
 
+  const handleAddToCart = (product) => {
+    let newObj = { ...product };
+    newObj.quantity = 1;
+    newObj.subTotal = product.price;
+    setCart([...cart, newObj]);
+  };
+
   return (
     <div className="row">
-      {pageData.map((product) => (
+      {pageData.map((product, index) => (
         <div key={product.id} className="col-12 col-md-4">
           <div className="card">
             <Link
@@ -39,10 +46,16 @@ const Products = ({ pageData }) => {
               </button>
               <button
                 className="btn btn-outline-dark btn-sm mt-2"
-                disabled={!cart.includes(product) ? false : "disabled"}
-                onClick={() => setCart([...cart, product])}
+                disabled={
+                  cart.filter((p) => p.id === product.id).length <= 0
+                    ? false
+                    : "disabled"
+                }
+                onClick={() => handleAddToCart(product)}
               >
-                {!cart.includes(product) ? "Add to cart" : "Added to cart"}
+                {cart.filter((p) => p.id === product.id).length <= 0
+                  ? "Add to cart"
+                  : "Added to cart"}
               </button>
             </div>
           </div>

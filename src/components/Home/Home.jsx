@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import _ from "lodash";
-import ProductContext from "../context/ProductContext";
+import { ProductContext } from "../context/ProductContext";
 import Filter from "../Filter/Filter";
 import Products from "../Products/Products";
 import Pagination from "../common/Pagination";

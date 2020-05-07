@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-import ProductContext from "../context/ProductContext";
+import { ProductContext } from "../context/ProductContext";
 
 const Navbar = () => {
   const { cart, showCart, setShowCart } = useContext(ProductContext);
@@ -33,6 +33,11 @@ const Navbar = () => {
               <li className="nav-item">
                 <NavLink to="/projects/fashioncom/about" className="nav-link">
                   About
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/projects/fashioncom/profile" className="nav-link">
+                  Profile
                 </NavLink>
               </li>
               <li className="nav-item">

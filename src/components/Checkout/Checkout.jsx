@@ -1,48 +1,30 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { ProductContext } from "../context/ProductContext";
+import Summary from "./Summary/Summary";
+import Shipping from "./Shipping/Shipping";
 
 const Checkout = () => {
+  const { cart, showCart, setShowCart } = useContext(ProductContext);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    if (showCart) {
+      setShowCart(!showCart);
+    }
+  });
+
+  useEffect(() => {
+    let totalPrice = 0;
+    cart.map((item) => (totalPrice += item.subTotal));
+    setTotal(totalPrice);
+  }, [cart]);
+
   return (
     <div className="checkout-page">
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-8">
-            <div className="checkout__summary">
-              <div className="checkout-card card">
-                <div className="card-header">Summary</div>
-                <div className="card-body checkout__summary--body">
-                  <div className="checkout__summary--item">
-                    <div className="checkout__summary--image">
-                      <img
-                        src="assets/img/woman-posing-for-photo-shoot-1689731.jpg"
-                        alt=""
-                      />
-                    </div>
-                    <div className="checkout__summary--details">
-                      <h6>Clothes Name</h6>
-                      <p>$99.90</p>
-
-                      <div className="checkout__summary--quantity">
-                        <div className="input-group">
-                          <div className="input-group-prepend">
-                            <div className="input-group-text">-</div>
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control quantity-selector"
-                            id="quantity"
-                          />
-                          <div className="input-group-prepend">
-                            <div className="input-group-text">+</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <i className="fas fa-trash-alt"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Summary />
 
             <div className="checkout-card card">
               <div className="card-header">Mode of Payment</div>
@@ -54,7 +36,7 @@ const Checkout = () => {
                     name="customRadio"
                     className="custom-control-input"
                   />
-                  <label className="custom-control-label" for="cod">
+                  <label className="custom-control-label" htmlFor="cod">
                     COD (Cash on Delivery)
                   </label>
                 </div>
@@ -65,7 +47,7 @@ const Checkout = () => {
                     name="customRadio"
                     className="custom-control-input"
                   />
-                  <label className="custom-control-label" for="creditCard">
+                  <label className="custom-control-label" htmlFor="creditCard">
                     Credit Card
                   </label>
                 </div>
@@ -76,7 +58,7 @@ const Checkout = () => {
                     name="customRadio"
                     className="custom-control-input"
                   />
-                  <label className="custom-control-label" for="paypal">
+                  <label className="custom-control-label" htmlFor="paypal">
                     Paypal
                   </label>
                 </div>
@@ -85,35 +67,7 @@ const Checkout = () => {
           </div>
 
           <div className="col-12 col-md-4">
-            <div className="checkout__ship-info">
-              <div className="checkout-card card">
-                <div className="card-header">Shipping</div>
-                <div className="card-body">
-                  <p className="card-text text-muted">
-                    <i className="fas fa-map-marker-alt"></i> 12 st. New City,
-                    Philippines
-                  </p>
-
-                  <div className="checkout__total">
-                    <p>
-                      Subtotal: <span>99.90</span>
-                    </p>
-                    <p>
-                      Shipping fee: <span>FREE</span>
-                    </p>
-                    <p>
-                      Voucher <span>0</span>
-                    </p>
-                    <p>
-                      Total: <span>$99.90</span>
-                    </p>
-                  </div>
-                  <a href="#" className="btn btn-primary form-control">
-                    Checkout
-                  </a>
-                </div>
-              </div>
-            </div>
+            <Shipping totalPrice={total} />
           </div>
         </div>
       </div>

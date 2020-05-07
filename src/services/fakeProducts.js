@@ -5,6 +5,13 @@ const products = [
     image: "/assets/img/man-wearing-black-hat-and-black-coat-157675.jpg",
     price: 99,
     category: "men",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 
   {
@@ -13,6 +20,13 @@ const products = [
     image: "/assets/img/photography-of-guy-wearing-yellow-hoodie-1183266.jpg",
     price: 99,
     category: "men",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 
   {
@@ -22,6 +36,13 @@ const products = [
       "/assets/img/woman-in-peach-color-and-red-floral-sweatshirt-holding-gray-794062.jpg",
     price: 99,
     category: "women",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 
   {
@@ -30,6 +51,13 @@ const products = [
     image: "/assets/img/woman-standing-near-building-1906873.jpg",
     price: 99,
     category: "women",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
   {
     id: "5",
@@ -38,6 +66,13 @@ const products = [
       "/assets/img/woman-wearing-pink-overcoat-and-black-inner-top-2043590.jpg",
     price: 99,
     category: "women",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
   {
     id: "6",
@@ -46,6 +81,13 @@ const products = [
       "/assets/img/woman-wearing-white-and-yellow-scoop-neck-mini-dress-884979.jpg",
     price: 99,
     category: "women",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
   {
     id: "7",
@@ -54,6 +96,13 @@ const products = [
       "/assets/img/man-in-white-and-gray-shirt-wearing-sunglasses-against-1192609.jpg",
     price: 99,
     category: "men",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 
   {
@@ -62,6 +111,13 @@ const products = [
     image: "/assets/img/woman-posing-for-photo-shoot-1689731.jpg",
     price: 99,
     category: "women",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 
   {
@@ -70,6 +126,13 @@ const products = [
     image: "/assets/img/woman-wearing-yellow-adidas-shirt-1759622.jpg",
     price: 99,
     category: "women",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 
   {
@@ -79,6 +142,13 @@ const products = [
       "/assets/img/man-in-white-and-gray-shirt-wearing-sunglasses-against-1192609.jpg",
     price: 99,
     category: "men",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 
   {
@@ -88,6 +158,13 @@ const products = [
       "/assets/img/man-in-white-and-gray-shirt-wearing-sunglasses-against-1192609.jpg",
     price: 99,
     category: "men",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 
   {
@@ -97,6 +174,13 @@ const products = [
       "/assets/img/man-in-white-and-gray-shirt-wearing-sunglasses-against-1192609.jpg",
     price: 99,
     category: "men",
+    reviews: [
+      {
+        user: "John Doe",
+        review: "This item is really amazing!",
+        rate: 5,
+      },
+    ],
   },
 ];
 

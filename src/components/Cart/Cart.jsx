@@ -1,13 +1,30 @@
-import React, { useContext } from "react";
-import ProductContext from "../context/ProductContext";
+import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { ProductContext } from "../context/ProductContext";
 import Button from "../common/Button";
 
 const Cart = () => {
   const { cart, setCart, showCart, setShowCart } = useContext(ProductContext);
+  const [total, setTotal] = useState(0);
+  const history = useHistory();
+
+  let totalPrice = 0;
+
+  useEffect(() => {
+    cart.map((item) => (totalPrice += item.subTotal));
+    setTotal(totalPrice);
+  }, [cart]);
 
   const handleDelete = (id) => {
     setCart(cart.filter((item) => item.id !== id));
   };
+
+  // const calculateTotalPrice = () => {
+  //   for (const item in cart) {
+  //     setTotalPrice((prev) => prev + item.price);
+  //     console.log(totalPrice);
+  //   }
+  // };
 
   return (
     <div className={showCart ? "cart-container show-cart" : "cart-container"}>
@@ -33,9 +50,9 @@ const Cart = () => {
                   <img src={item.image} alt="" />
                 </div>
                 <div className="cart-item__details">
-                  <p>{item.name}</p>
-                  <p>${item.price}</p>
-                  <p>x1</p>
+                  <h6 className="m-0">{item.name}</h6>
+                  <p>${item.subTotal}</p>
+                  <p>x{item.quantity}</p>
                   <i
                     className="fas fa-trash-alt"
                     onClick={() => handleDelete(item.id)}
@@ -46,11 +63,12 @@ const Cart = () => {
           )}
         </div>
       </div>
+      <h5>Total: ${total}</h5>
       <Button
         label="Checkout"
         className="btn-dark form-control"
         disabled={cart.length < 1 ? "disabled" : false}
-        onClick={() => (window.location = "/projects/fashioncom/checkout")}
+        onClick={() => history.push("/projects/fashioncom/checkout")}
       />
     </div>
   );

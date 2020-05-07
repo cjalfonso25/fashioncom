@@ -174,10 +174,24 @@ body {
   padding: 4px 0;
   width: 100%;
 }
+
+.checkout-page .checkout__summary--details .subtotal {
+  min-width: 50px;
+}
 .checkout-page .checkout__summary--quantity .input-group {
-  max-width: 110px;
+  max-width: 150px;
   text-align: center;
 }
+
+.checkout-page .checkout__summary--quantity .input-group .quantity-selector {
+  background-color: #fff;
+}
+
+.input-group-append,
+.input-group-prepend {
+  cursor: pointer;
+}
+
 .checkout-page .checkout__total {
   padding: 16px 0;
   border-top: 1px solid #eaeaea;
