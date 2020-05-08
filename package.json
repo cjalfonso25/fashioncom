@@ -13,6 +13,7 @@
     "braintree-web-drop-in-react": "^1.1.1",
     "jquery": "^3.5.0",
     "lodash": "^4.17.15",
+    "paypal-checkout": "^4.0.314",
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

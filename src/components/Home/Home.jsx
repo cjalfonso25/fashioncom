@@ -66,6 +66,7 @@ const Home = () => {
           <div className="row">
             <div className="col-12 col-md-2">
               <Input
+                labelClass="d-none"
                 placeholder="Search here"
                 name="search"
                 value={searchQuery}
@@ -75,7 +76,7 @@ const Home = () => {
             </div>
 
             {/* PRODUCTS */}
-            <div className="col-12 col-md-10 mt-3">
+            <div className="col-12 col-md-10">
               <Products pageData={pageData} />
               <Pagination
                 totalProd={totalCount}

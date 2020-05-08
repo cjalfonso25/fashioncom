@@ -18,6 +18,10 @@ const Cart = () => {
     setCart(cart.filter((item) => item.id !== id));
   };
 
+  const handleEmptyCart = () => {
+    setCart([]);
+  };
+
   // const calculateTotalPrice = () => {
   //   for (const item in cart) {
   //     setTotalPrice((prev) => prev + item.price);
@@ -38,7 +42,14 @@ const Cart = () => {
         </button>
       </div>
       <div>
-        <h3>My Cart</h3>
+        <div className="d-flex justify-content-between">
+          <h3>My Cart</h3>
+          <Button
+            label="Delete All"
+            className=" btn-secondary btn-sm m-0"
+            onClick={handleEmptyCart}
+          />
+        </div>
         <div className="cart-items">
           {cart.length < 1 ? (
             <small className="text-muted">No items in cart</small>
@@ -62,10 +73,10 @@ const Cart = () => {
           )}
         </div>
       </div>
-      <h5>Total: ${total}</h5>
+      <h5 className="my-2">Total: ${total}</h5>
       <Button
         label="Checkout"
-        className="btn-dark form-control"
+        className="btn-dark form-control m-0"
         disabled={cart.length < 1 ? "disabled" : false}
         onClick={() => history.push("/projects/fashioncom/checkout")}
       />

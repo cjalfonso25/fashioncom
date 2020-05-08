@@ -16,7 +16,7 @@ const Products = ({ pageData }) => {
   return (
     <div className="row">
       {pageData.map((product, index) => (
-        <div key={product.id} className="col-12 col-md-4">
+        <div key={product.id} className="col-6 col-md-4">
           <div className="card">
             <Link
               to={{
@@ -40,7 +40,7 @@ const Products = ({ pageData }) => {
               </Link>
               <Button
                 label={<i className="far fa-heart"></i>}
-                className="btn-outline-dark btn-sm mt-2 mr-1"
+                className="btn-outline-dark btn-sm mt-2 mr-1 add-wishlist"
               />
               <Button
                 label={

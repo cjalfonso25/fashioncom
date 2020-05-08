@@ -4,12 +4,22 @@ import DropIn from "braintree-web-drop-in-react";
 import { ProductContext } from "../context/ProductContext";
 import Summary from "./Summary/Summary";
 import Shipping from "./Shipping/Shipping";
+import Radio from "../common/Radio";
+import paypal from "paypal-checkout";
+import braintree from "braintree-web";
+import client from "braintree-web/client";
+import paypalCheckout from "braintree-web/paypal-checkout";
 
 const Checkout = () => {
   const { cart, showCart, setShowCart } = useContext(ProductContext);
   const [inst, setInst] = useState(null);
   const [total, setTotal] = useState(0);
   const [clientToken, setClientToken] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState({
+    cod: false,
+    creditCard: false,
+    paypal: false,
+  });
 
   useEffect(() => {
     async function getToken() {
@@ -34,6 +44,15 @@ const Checkout = () => {
     setTotal(totalPrice);
   }, [cart]);
 
+  const setCreditCardMethod = () =>
+    setPaymentMethod({ cod: false, creditCard: true, paypal: false });
+
+  const setCODMethod = () =>
+    setPaymentMethod({ cod: true, creditCard: false, paypal: false });
+
+  const setPaypalMethod = () =>
+    setPaymentMethod({ cod: false, creditCard: false, paypal: true });
+
   const buy = async () => {
     try {
       const { nonce } = await inst.requestPaymentMethod();
@@ -57,9 +76,29 @@ const Checkout = () => {
             <div className="checkout-card card">
               <div className="card-header">Mode of Payment</div>
               <div className="card-body">
-                {!clientToken ? (
-                  <small>Loading...</small>
-                ) : (
+                <Radio
+                  label="COD (Cash on Delivery)"
+                  id="cod"
+                  name="paymentMethod"
+                  checked={paymentMethod.cod}
+                  onChange={setCODMethod}
+                />
+                <Radio
+                  label="Credit Card"
+                  id="creditCard"
+                  name="paymentMethod"
+                  checked={paymentMethod.creditCard}
+                  onChange={setCreditCardMethod}
+                />
+                <Radio
+                  label="Paypal"
+                  id="paypal"
+                  name="paymentMethod"
+                  checked={paymentMethod.paypal}
+                  onChange={setPaypalMethod}
+                />
+
+                {!paymentMethod.creditCard ? null : (
                   <DropIn
                     options={{
                       authorization: clientToken,
@@ -67,39 +106,8 @@ const Checkout = () => {
                     onInstance={(instance) => setInst(instance)}
                   />
                 )}
-                {/* <div className="custom-control custom-radio">
-                  <input
-                    type="radio"
-                    id="cod"
-                    name="customRadio"
-                    className="custom-control-input"
-                  />
-                  <label className="custom-control-label" htmlFor="cod">
-                    COD (Cash on Delivery)
-                  </label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input
-                    type="radio"
-                    id="creditCard"
-                    name="customRadio"
-                    className="custom-control-input"
-                  />
-                  <label className="custom-control-label" htmlFor="creditCard">
-                    Credit Card
-                  </label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input
-                    type="radio"
-                    id="paypal"
-                    name="customRadio"
-                    className="custom-control-input"
-                  />
-                  <label className="custom-control-label" htmlFor="paypal">
-                    Paypal
-                  </label>
-                </div> */}
+                {!paymentMethod.cod ? null : <h1>COD</h1>}
+                {!paymentMethod.paypal ? null : <h1>Paypal</h1>}
               </div>
             </div>
           </div>
