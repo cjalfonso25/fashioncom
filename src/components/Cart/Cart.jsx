@@ -8,9 +8,8 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
   const history = useHistory();
 
-  let totalPrice = 0;
-
   useEffect(() => {
+    let totalPrice = 0;
     cart.map((item) => (totalPrice += item.subTotal));
     setTotal(totalPrice);
   }, [cart]);

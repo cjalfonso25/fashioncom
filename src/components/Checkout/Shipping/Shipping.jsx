@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import "braintree-web";
 
-const Shipping = ({ totalPrice }) => {
+const Shipping = ({ totalPrice, buy }) => {
   return (
     <div className="checkout__ship-info">
       <div className="checkout-card card">
@@ -25,16 +26,17 @@ const Shipping = ({ totalPrice }) => {
               Total: <span>${totalPrice}</span>
             </p>
           </div>
-          <a
-            href="#"
+          <button
             className={
               totalPrice <= 0
                 ? "btn btn-primary form-control disabled"
                 : "btn btn-primary form-control"
             }
+            // className="btn btn-primary form-control"
+            onClick={buy}
           >
             Checkout
-          </a>
+          </button>
         </div>
       </div>
     </div>

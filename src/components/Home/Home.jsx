@@ -27,6 +27,7 @@ const Home = () => {
     const name = e.target.id;
     const isChecked = e.target.checked;
 
+    setSearchQuery("");
     setFilter({ ...filter, [name]: isChecked });
     setCurrentPage(1);
   };
