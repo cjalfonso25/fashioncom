@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProfileTab = () => {
+const ProfileTab = ({ activeUser }) => {
   return (
     <div
       className="tab-pane fade show active"
@@ -9,14 +9,15 @@ const ProfileTab = () => {
       aria-labelledby="v-pills-profile-tab"
     >
       <h1 className="profile__tab-title">Profile</h1>
-      <small className="text-muted">ID: 25826581692</small>
+
+      <small className="text-muted">ID: {activeUser._id}</small>
 
       <div className="profile-data">
-        <p>Name: John Doe</p>
-        <p>Email: johndoe@domain.com</p>
-        <p>Mobile: 09123456789</p>
-        <p>Gender: Male</p>
-        <p>Birthday: Not set</p>
+        <p>Name: {activeUser.name}</p>
+        <p>Email: {activeUser.email}</p>
+        <p>Mobile: {activeUser.mobile}</p>
+        <p>Gender: {activeUser.gender}</p>
+        <p>Birthday: {activeUser.birthday}</p>
         <button className="btn btn-success">Update</button>
       </div>
     </div>

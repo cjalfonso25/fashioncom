@@ -7,10 +7,13 @@ import Public from "./components/Main/Public";
 import Private from "./components/Main/Private";
 import PrivateDashboard from "./components/Main/PrivateDashboard";
 import { ProductContext } from "./components/context/ProductContext";
+import { UserContext } from "./components/context/UserContext";
 import { getProducts } from "./services/fakeProducts";
+import { getUser } from "./services/fakeUsers";
 import "./App.css";
 
 function App() {
+  const [activeUser, setActiveUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [filter, setFilter] = useState({
@@ -46,19 +49,25 @@ function App() {
 
   useEffect(() => {
     setProducts(getProducts());
+    setActiveUser(getUser(1));
   }, []);
 
   return (
-    <ProductContext.Provider value={providerValue}>
-      <Switch>
-        <PrivateDashboardRoute
-          path="/projects/fashioncom/dashboard"
-          component={PrivateDashboard}
-        />
-        <PrivateRoute path="/projects/fashioncom/profile" component={Private} />
-        <PublicRoute path="/projects/fashioncom" component={Public} />
-      </Switch>
-    </ProductContext.Provider>
+    <UserContext.Provider value={{ activeUser, setActiveUser }}>
+      <ProductContext.Provider value={providerValue}>
+        <Switch>
+          <PrivateDashboardRoute
+            path="/projects/fashioncom/dashboard"
+            component={PrivateDashboard}
+          />
+          <PrivateRoute
+            path="/projects/fashioncom/profile"
+            component={Private}
+          />
+          <PublicRoute path="/projects/fashioncom" component={Public} />
+        </Switch>
+      </ProductContext.Provider>
+    </UserContext.Provider>
   );
 }
 

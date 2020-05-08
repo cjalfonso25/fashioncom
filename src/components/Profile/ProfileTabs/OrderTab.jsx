@@ -1,6 +1,6 @@
 import React from "react";
 
-const OrderTab = () => {
+const OrderTab = ({ orders }) => {
   return (
     <div
       className="tab-pane fade"
@@ -9,30 +9,29 @@ const OrderTab = () => {
       aria-labelledby="v-pills-orders-tab"
     >
       <h1 className="profile__tab-title">Orders</h1>
-      <small className="text-muted">6 ITEMS</small>
+      <small className="text-muted">
+        {orders.length > 1 ? `${orders.length} ITEMS` : `${orders.length} ITEM`}
+      </small>
 
       <div className="orders">
-        <div className="order">
-          <div className="order__id">
-            <h3>Order 203192519235</h3>
-            <a href="#">View Order</a>
-          </div>
-          <div className="order__date">
-            <small className="text-muted">Placed: January 1, 2020</small>
-            <small className="text-muted">Status: In progress</small>
-          </div>
-        </div>
-
-        <div className="order">
-          <div className="order__id">
-            <h3>Order 203192519235</h3>
-            <a href="#">View Order</a>
-          </div>
-          <div className="order__date">
-            <small className="text-muted">Placed: January 1, 2020</small>
-            <small className="text-muted">Status: In progress</small>
-          </div>
-        </div>
+        {orders.length > 0 ? (
+          orders.map((order) => (
+            <div className="order">
+              <div className="order__id">
+                <h3>Order #{order._id}</h3>
+                <a href="#">View Order</a>
+              </div>
+              <div className="order__date">
+                <small className="text-muted">Placed: {order.orderDate}</small>
+                <small className="text-muted">
+                  Status: {order.orderStatus}
+                </small>
+              </div>
+            </div>
+          ))
+        ) : (
+          <small className="text-muted">No items available.</small>
+        )}
       </div>
     </div>
   );

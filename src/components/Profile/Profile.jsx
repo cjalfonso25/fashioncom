@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProfileTab from "./ProfileTabs/ProfileTab";
 import OrderTab from "./ProfileTabs/OrderTab";
 import AddressTab from "./ProfileTabs/AddressTab";
 import WishlistTab from "./ProfileTabs/WishlistTab";
+import { UserContext } from "../context/UserContext";
+import Loader from "react-loader-spinner";
 
 const Profile = () => {
+  const { activeUser } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [activeUser]);
+
   return (
     <div className="profile-page">
       <div className="container">
@@ -63,12 +72,19 @@ const Profile = () => {
             </div>
           </div>
           <div className="col-12 col-md-9">
-            <div className="tab-content" id="v-pills-tabContent">
-              <ProfileTab />
-              <OrderTab />
-              <AddressTab />
-              <WishlistTab />
-            </div>
+            {isLoading ? (
+              <Loader type="Puff" color="#00BFFF" height={50} width={50} />
+            ) : (
+              <div className="tab-content" id="v-pills-tabContent">
+                <ProfileTab activeUser={activeUser} />
+                <OrderTab orders={activeUser.orders} />
+                <AddressTab
+                  activeUser={activeUser}
+                  addresses={activeUser.addresses}
+                />
+                <WishlistTab wishlists={activeUser.wishlists} />
+              </div>
+            )}
           </div>
         </div>
       </div>
