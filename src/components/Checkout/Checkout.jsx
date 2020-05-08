@@ -39,7 +39,7 @@ const Checkout = () => {
       const { nonce } = await inst.requestPaymentMethod();
       const response = await axios.post(
         "http://localhost:5000/api/payment/checkout",
-        { nonce }
+        { nonce, total }
       );
       console.log("RESPONSE", response);
     } catch (err) {
