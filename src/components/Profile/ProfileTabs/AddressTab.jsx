@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
-const AddressTab = ({ activeUser, addresses }) => {
+const AddressTab = ({
+  activeUser,
+  addresses,
+  showAddAddress,
+  handleShowAddAddress,
+  handleAddAddress,
+}) => {
+  const [address, setAddress] = useState({});
+
   return (
     <div
       className="tab-pane fade"
@@ -9,9 +17,31 @@ const AddressTab = ({ activeUser, addresses }) => {
       aria-labelledby="v-pills-address-tab"
     >
       <h1 className="profile__tab-title">Address</h1>
-      <small className="btn btn-sm btn-link">
+      <small className="btn btn-sm btn-link" onClick={handleShowAddAddress}>
         <i className="fas fa-plus"></i> Add new address
       </small>
+      {showAddAddress ? (
+        <div className="form-row">
+          <div className="col-10">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Street, Building, City, Province"
+              onChange={(e) => setAddress({ id: 2, address: e.target.value })}
+            />
+          </div>
+          <div className="col">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={!address ? "disabled" : false}
+              onClick={() => handleAddAddress(address)}
+            >
+              Add
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       <div className="addresses">
         {addresses.length > 0 ? (

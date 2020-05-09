@@ -11,7 +11,7 @@ const Private = () => {
       <Navbar />
       <Cart />
       <Switch>
-        <Route path="/projects/fashioncom/dashboard" component={Profile} />
+        {/* <Route path="/projects/fashioncom/dashboard" component={Profile} /> */}
         <Route path="/projects/fashioncom/profile" component={Profile} />
         <Redirect
           from="/projects/fashioncom"

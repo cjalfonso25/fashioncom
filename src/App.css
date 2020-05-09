@@ -487,3 +487,16 @@ body {
     display: none !important;
   }
 }
+
+.order-success-page {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-success-page .order-check {
+  font-size: 60px;
+  color: rgb(16, 179, 1);
+}

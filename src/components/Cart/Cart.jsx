@@ -75,7 +75,7 @@ const Cart = () => {
       </div>
       <h5 className="my-2">Total: ${total}</h5>
       <Button
-        label="Checkout"
+        label="Proceed to Checkout"
         className="btn-dark form-control m-0"
         disabled={cart.length < 1 ? "disabled" : false}
         onClick={() => history.push("/projects/fashioncom/checkout")}

@@ -15,38 +15,44 @@ const users = [
     orders: [
       {
         _id: 1,
-        name: "Clothes 2",
-        image:
-          "/assets/img/photography-of-guy-wearing-yellow-hoodie-1183266.jpg",
-        price: 99,
-        category: "men",
-        quantity: 2,
         orderDate: "January 1, 2020",
         orderStatus: "Delivered",
-        reviews: [
+        items: [
           {
-            user: "John Doe",
-            review: "This item is really amazing!",
-            rate: 5,
-          },
-        ],
-      },
+            _id: 1,
+            name: "Clothes 2",
+            image:
+              "/assets/img/photography-of-guy-wearing-yellow-hoodie-1183266.jpg",
+            price: 99,
+            category: "men",
+            quantity: 2,
 
-      {
-        _id: 2,
-        name: "Clothes 2",
-        image:
-          "/assets/img/photography-of-guy-wearing-yellow-hoodie-1183266.jpg",
-        price: 99,
-        category: "men",
-        quantity: 2,
-        orderDate: "March 18, 2020",
-        orderStatus: "In Progress",
-        reviews: [
+            reviews: [
+              {
+                user: "John Doe",
+                review: "This item is really amazing!",
+                rate: 5,
+              },
+            ],
+          },
+
           {
-            user: "John Doe",
-            review: "This item is really amazing!",
-            rate: 5,
+            _id: 2,
+            name: "Clothes 2",
+            image:
+              "/assets/img/photography-of-guy-wearing-yellow-hoodie-1183266.jpg",
+            price: 99,
+            category: "men",
+            quantity: 2,
+            orderDate: "March 18, 2020",
+            orderStatus: "In Progress",
+            reviews: [
+              {
+                user: "John Doe",
+                review: "This item is really amazing!",
+                rate: 5,
+              },
+            ],
           },
         ],
       },

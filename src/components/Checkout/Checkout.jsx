@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import DropIn from "braintree-web-drop-in-react";
 import { ProductContext } from "../context/ProductContext";
+import { UserContext } from "../context/UserContext";
 import Summary from "./Summary/Summary";
 import Shipping from "./Shipping/Shipping";
 import Radio from "../common/Radio";
@@ -12,6 +14,7 @@ import paypalCheckout from "braintree-web/paypal-checkout";
 
 const Checkout = () => {
   const { cart, showCart, setShowCart } = useContext(ProductContext);
+  const { activeUser, setActiveUser } = useContext(UserContext);
   const [inst, setInst] = useState(null);
   const [total, setTotal] = useState(0);
   const [clientToken, setClientToken] = useState(null);
@@ -20,6 +23,8 @@ const Checkout = () => {
     creditCard: false,
     paypal: false,
   });
+
+  const history = useHistory();
 
   useEffect(() => {
     async function getToken() {
@@ -61,6 +66,15 @@ const Checkout = () => {
         { nonce, total }
       );
       console.log("RESPONSE", response);
+      if (response.status === 200) {
+        //save transacation to mysql db
+        //save order to user's order history
+        setActiveUser({
+          ...activeUser,
+          orders: [...activeUser.orders, ...cart],
+        });
+        history.push("/projects/fashioncom/order-successful");
+      }
     } catch (err) {
       console.log("ERROR", err);
     }
@@ -90,14 +104,6 @@ const Checkout = () => {
                   checked={paymentMethod.creditCard}
                   onChange={setCreditCardMethod}
                 />
-                <Radio
-                  label="Paypal"
-                  id="paypal"
-                  name="paymentMethod"
-                  checked={paymentMethod.paypal}
-                  onChange={setPaypalMethod}
-                />
-
                 {!paymentMethod.creditCard ? null : (
                   <DropIn
                     options={{
@@ -106,6 +112,14 @@ const Checkout = () => {
                     onInstance={(instance) => setInst(instance)}
                   />
                 )}
+                <Radio
+                  label="Paypal"
+                  id="paypal"
+                  name="paymentMethod"
+                  checked={paymentMethod.paypal}
+                  onChange={setPaypalMethod}
+                />
+
                 {!paymentMethod.cod ? null : <h1>COD</h1>}
                 {!paymentMethod.paypal ? null : <h1>Paypal</h1>}
               </div>
@@ -113,7 +127,11 @@ const Checkout = () => {
           </div>
 
           <div className="col-12 col-md-4">
-            <Shipping totalPrice={total} buy={buy} />
+            <Shipping
+              totalPrice={total}
+              paymentMethod={paymentMethod}
+              buy={buy}
+            />
           </div>
         </div>
       </div>

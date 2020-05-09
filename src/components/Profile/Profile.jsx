@@ -10,6 +10,7 @@ import { ProductContext } from "../context/ProductContext";
 const Profile = () => {
   const { activeUser, setActiveUser } = useContext(UserContext);
   const { cart, setCart } = useContext(ProductContext);
+  const [showAddAddress, setShowAddAddress] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -31,6 +32,16 @@ const Profile = () => {
       ),
     });
   };
+
+  const handleAddAddress = (address) => {
+    setActiveUser({
+      ...activeUser,
+      addresses: [...activeUser.addresses, address],
+    });
+    setShowAddAddress(!showAddAddress);
+  };
+
+  const handleShowAddAddress = () => setShowAddAddress(!showAddAddress);
 
   return (
     <div className="profile-page">
@@ -99,6 +110,9 @@ const Profile = () => {
                 <AddressTab
                   activeUser={activeUser}
                   addresses={activeUser.addresses}
+                  showAddAddress={showAddAddress}
+                  handleShowAddAddress={handleShowAddAddress}
+                  handleAddAddress={handleAddAddress}
                 />
                 <WishlistTab
                   cart={cart}

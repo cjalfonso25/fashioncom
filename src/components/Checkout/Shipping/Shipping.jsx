@@ -1,7 +1,7 @@
 import React from "react";
 import "braintree-web";
 
-const Shipping = ({ totalPrice, buy }) => {
+const Shipping = ({ totalPrice, paymentMethod, buy }) => {
   return (
     <div className="checkout__ship-info">
       <div className="checkout-card card">
@@ -27,10 +27,12 @@ const Shipping = ({ totalPrice, buy }) => {
             </p>
           </div>
           <button
-            className={
-              totalPrice <= 0
-                ? "btn btn-primary form-control disabled"
-                : "btn btn-primary form-control"
+            className="btn btn-primary form-control"
+            disabled={
+              totalPrice <= 0 ||
+              Object.keys(paymentMethod).every((m) => !paymentMethod[m])
+                ? "disabled"
+                : false
             }
             // className="btn btn-primary form-control"
             onClick={totalPrice !== 0 ? buy : null}
