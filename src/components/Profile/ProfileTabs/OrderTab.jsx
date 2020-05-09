@@ -16,7 +16,7 @@ const OrderTab = ({ orders }) => {
       <div className="orders">
         {orders.length > 0 ? (
           orders.map((order) => (
-            <div className="order">
+            <div key={order._id} className="order">
               <div className="order__id">
                 <h3>Order #{order._id}</h3>
                 <a href="#">View Order</a>

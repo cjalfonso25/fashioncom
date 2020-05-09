@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import { ProductContext } from "../context/ProductContext";
 import { Link } from "react-router-dom";
+import { ProductContext } from "../context/ProductContext";
+import { UserContext } from "../context/UserContext";
 import Button from "../common/Button";
 
 const Products = ({ pageData }) => {
   const { cart, setCart } = useContext(ProductContext);
+  const { activeUser, setActiveUser } = useContext(UserContext);
 
   const handleAddToCart = (product) => {
     let newObj = { ...product };
@@ -13,14 +15,32 @@ const Products = ({ pageData }) => {
     setCart([...cart, newObj]);
   };
 
+  const handleAddToWishlist = (product) => {
+    if (
+      activeUser.wishlists.filter((wishlist) => wishlist._id === product._id)
+        .length > 0
+    )
+      setActiveUser({
+        ...activeUser,
+        wishlists: activeUser.wishlists.filter(
+          (wishlist) => product._id !== wishlist._id
+        ),
+      });
+    else
+      setActiveUser({
+        ...activeUser,
+        wishlists: [...activeUser.wishlists, product],
+      });
+  };
+
   return (
     <div className="row">
       {pageData.map((product, index) => (
-        <div key={product.id} className="col-6 col-md-4">
+        <div key={product._id} className="col-6 col-md-4">
           <div className="card">
             <Link
               to={{
-                pathname: `/projects/fashioncom/products/${product.id}`,
+                pathname: `/projects/fashioncom/products/${product._id}`,
               }}
             >
               <img
@@ -32,25 +52,34 @@ const Products = ({ pageData }) => {
             <div className="card-body">
               <Link
                 to={{
-                  pathname: `/projects/fashioncom/products/${product.id}`,
+                  pathname: `/projects/fashioncom/products/${product._id}`,
                 }}
               >
                 <h5 className="card-title item__name">{product.name}</h5>
                 <p className="card-text item__price">${product.price}</p>
               </Link>
               <Button
-                label={<i className="far fa-heart"></i>}
+                label={
+                  activeUser.wishlists.filter(
+                    (wishlist) => wishlist._id === product._id
+                  ).length > 0 ? (
+                    <i className="fas fa-heart"></i>
+                  ) : (
+                    <i className="far fa-heart"></i>
+                  )
+                }
                 className="btn-outline-dark btn-sm mt-2 mr-1 add-wishlist"
+                onClick={() => handleAddToWishlist(product)}
               />
               <Button
                 label={
-                  cart.filter((p) => p.id === product.id).length <= 0
+                  cart.filter((p) => p._id === product._id).length <= 0
                     ? "Add to cart"
                     : "Added to cart"
                 }
                 className="btn-outline-dark btn-sm mt-2"
                 disabled={
-                  cart.filter((p) => p.id === product.id).length <= 0
+                  cart.filter((p) => p._id === product._id).length <= 0
                     ? false
                     : "disabled"
                 }

@@ -34,7 +34,7 @@ const users = [
 
       {
         _id: 2,
-        name: "Clothes 5",
+        name: "Clothes 2",
         image:
           "/assets/img/photography-of-guy-wearing-yellow-hoodie-1183266.jpg",
         price: 99,
@@ -53,7 +53,7 @@ const users = [
     ],
     wishlists: [
       {
-        id: "14",
+        _id: 14,
         name: "Hoody for Men",
         image:
           "/assets/img/photography-of-guy-wearing-yellow-hoodie-1183266.jpg",

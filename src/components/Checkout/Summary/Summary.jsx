@@ -5,7 +5,7 @@ const Summary = () => {
   const { cart, setCart } = useContext(ProductContext);
 
   const handleDelete = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
+    setCart(cart.filter((item) => item._id !== id));
   };
 
   const handleSubQuantity = (index) => {
@@ -35,7 +35,7 @@ const Summary = () => {
             <small className="text-muted">No items in your cart.</small>
           ) : (
             cart.map((item, index) => (
-              <div key={item.id} className="checkout__summary--item">
+              <div key={item._id} className="checkout__summary--item">
                 <div className="checkout__summary--image">
                   <img src={item.image} alt="" />
                 </div>
@@ -72,7 +72,7 @@ const Summary = () => {
 
                   <i
                     className="fas fa-trash-alt"
-                    onClick={(e) => handleDelete(item.id)}
+                    onClick={(e) => handleDelete(item._id)}
                   ></i>
                 </div>
               </div>

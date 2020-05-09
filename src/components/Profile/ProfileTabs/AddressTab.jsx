@@ -16,7 +16,7 @@ const AddressTab = ({ activeUser, addresses }) => {
       <div className="addresses">
         {addresses.length > 0 ? (
           addresses.map((address) => (
-            <div className="address">
+            <div key={address._id} className="address">
               <i className="fas fa-map-marker-alt"></i>
               <div className="address__details">
                 <div>

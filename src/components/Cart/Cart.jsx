@@ -15,7 +15,7 @@ const Cart = () => {
   }, [cart]);
 
   const handleDelete = (id) => {
-    setCart(cart.filter((item) => item.id !== id));
+    setCart(cart.filter((item) => item._id !== id));
   };
 
   const handleEmptyCart = () => {
@@ -55,7 +55,7 @@ const Cart = () => {
             <small className="text-muted">No items in cart</small>
           ) : (
             cart.map((item) => (
-              <div key={item.id} className="cart-item">
+              <div key={item._id} className="cart-item">
                 <div className="cart-item__image">
                   <img src={item.image} alt="" />
                 </div>
@@ -65,7 +65,7 @@ const Cart = () => {
                   <p>x{item.quantity}</p>
                   <i
                     className="fas fa-trash-alt"
-                    onClick={() => handleDelete(item.id)}
+                    onClick={() => handleDelete(item._id)}
                   ></i>
                 </div>
               </div>

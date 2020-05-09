@@ -1,6 +1,6 @@
 import React from "react";
 
-const WishlistTab = ({ wishlists }) => {
+const WishlistTab = ({ wishlists, cart, onAddToCart, onDelete }) => {
   return (
     <div
       className="tab-pane fade"
@@ -18,7 +18,7 @@ const WishlistTab = ({ wishlists }) => {
       <div className="wishlists">
         {wishlists.length > 0 ? (
           wishlists.map((wishlist) => (
-            <div className="wishlist">
+            <div key={wishlist._id} className="wishlist">
               <div className="wishlist__image">
                 <img src={wishlist.image} alt="" />
               </div>
@@ -29,10 +29,21 @@ const WishlistTab = ({ wishlists }) => {
                     Color: {wishlist.color}
                   </small>
                   <p className="wishlist__details--price">${wishlist.price}</p>
-                  <i className="fas fa-trash-alt"></i>
+                  <i
+                    className="fas fa-trash-alt"
+                    onClick={() => onDelete(wishlist._id)}
+                  ></i>
                 </div>
                 <div>
-                  <button className="btn btn-dark">
+                  <button
+                    className="btn btn-dark"
+                    disabled={
+                      cart.filter((p) => p._id === wishlist._id).length <= 0
+                        ? false
+                        : "disabled"
+                    }
+                    onClick={() => onAddToCart(wishlist)}
+                  >
                     <i className="fas fa-cart-plus"></i>
                   </button>
                 </div>

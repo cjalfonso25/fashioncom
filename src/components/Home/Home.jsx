@@ -24,7 +24,7 @@ const Home = () => {
   };
 
   const handleFilters = (e) => {
-    const name = e.target.id;
+    const name = e.target._id;
     const isChecked = e.target.checked;
 
     setSearchQuery("");

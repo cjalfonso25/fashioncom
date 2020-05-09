@@ -3,16 +3,34 @@ import ProfileTab from "./ProfileTabs/ProfileTab";
 import OrderTab from "./ProfileTabs/OrderTab";
 import AddressTab from "./ProfileTabs/AddressTab";
 import WishlistTab from "./ProfileTabs/WishlistTab";
-import { UserContext } from "../context/UserContext";
 import Loader from "react-loader-spinner";
+import { UserContext } from "../context/UserContext";
+import { ProductContext } from "../context/ProductContext";
 
 const Profile = () => {
-  const { activeUser } = useContext(UserContext);
+  const { activeUser, setActiveUser } = useContext(UserContext);
+  const { cart, setCart } = useContext(ProductContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(false);
   }, [activeUser]);
+
+  const handleAddWishlistToCart = (product) => {
+    let newObj = { ...product };
+    newObj.quantity = 1;
+    newObj.subTotal = product.price;
+    setCart([...cart, newObj]);
+  };
+
+  const handleDeleteWishlist = (productId) => {
+    setActiveUser({
+      ...activeUser,
+      wishlists: activeUser.wishlists.filter(
+        (wishlist) => productId !== wishlist._id
+      ),
+    });
+  };
 
   return (
     <div className="profile-page">
@@ -82,7 +100,12 @@ const Profile = () => {
                   activeUser={activeUser}
                   addresses={activeUser.addresses}
                 />
-                <WishlistTab wishlists={activeUser.wishlists} />
+                <WishlistTab
+                  cart={cart}
+                  wishlists={activeUser.wishlists}
+                  onAddToCart={handleAddWishlistToCart}
+                  onDelete={handleDeleteWishlist}
+                />
               </div>
             )}
           </div>
