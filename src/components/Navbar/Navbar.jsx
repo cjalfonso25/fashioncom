@@ -40,11 +40,11 @@ const Navbar = () => {
                   Profile
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink to="/projects/fashioncom/login" className="nav-link">
                   Login
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <button
                   className="nav-link btn  btn-link"

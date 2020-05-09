@@ -218,6 +218,11 @@ function getProducts() {
   return products;
 }
 
+function getProduct(id) {
+  return products.find((product) => product._id === id);
+}
+
 module.exports = {
   getProducts,
+  getProduct,
 };
